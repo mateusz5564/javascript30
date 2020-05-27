@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>CSS Clock</title>
+</head>
+<body>
+  <div class="clock">
+    <div class="clock-face">
+      <div class="hand hour-hand"></div>
+      <div class="hand minute-hand"></div>
+      <div class="hand second-hand"></div>
+    </div>
+  </div>
+  <script>
+    const hour_hand = document.querySelector('.hour-hand');
+    const minute_hand = document.querySelector('.minute-hand');
+    const second_hand = document.querySelector('.second-hand');
+
+    function moveHands() {
+      const date = new Date();
+      const hourInDegrees = date.getHours() * 30 + date.getHours() % 30 - 90;
+      const minutesInDegrees = date.getMinutes() * 6 + date.getMinutes() % 6 - 90;
+      const secondsInDegrees = date.getSeconds() * 6 - 90;
+
+      hour_hand.style.transform = `rotate(${hourInDegrees}deg)`;
+      minute_hand.style.transform = `rotate(${minutesInDegrees}deg)`;
+      second_hand.style.transform = `rotate(${secondsInDegrees}deg)`;
+    }
+
+    setInterval(moveHands, 1000);
+
+  </script>
+</body>
+</html>

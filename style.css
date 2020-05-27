@@ -1,0 +1,44 @@
+html {
+  background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+  background-size: cover;
+  font-family: 'helvetica neue';
+  text-align: center;
+  font-size: 10px;
+}
+
+body {
+  margin: 0;
+  font-size: 2rem;
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.clock {
+  height: 30rem;
+  width: 30rem;
+  margin: 30px auto;
+  border: 20px solid white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.hand {
+  width: 45%;
+  height: 5px;
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(-90deg);
+  transform-origin: left;
+}
+
+.hour-hand {
+  width: 35%;
+}
+
+.minute-hand {
+  width: 40%;
+}
