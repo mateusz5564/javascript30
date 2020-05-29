@@ -21,8 +21,8 @@
 
     function moveHands() {
       const date = new Date();
-      const hourInDegrees = date.getHours() * 30 + date.getHours() % 30 - 90;
-      const minutesInDegrees = date.getMinutes() * 6 + date.getMinutes() % 6 - 90;
+      const hourInDegrees = date.getHours() * 30 - 90;
+      const minutesInDegrees = date.getMinutes() * 6 - 90;
       const secondsInDegrees = date.getSeconds() * 6 - 90;
 
       hour_hand.style.transform = `rotate(${hourInDegrees}deg)`;
