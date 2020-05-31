@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    :root {
+      --spacing: 10px;
+      --blur: 10px;
+      --color: #ffff00;
+    }
+
+    body {
+      background-color: rgb(13, 82, 114);
+      text-align: center;
+      font-family: Arial;
+      font-size: 3rem;
+      color: white;
+    }
+
+    .controls {
+      margin-bottom: 5rem;
+    }
+
+    input {
+      vertical-align: middle;
+      width: 100px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--color);
+      filter: blur(var(--blur));
+    }
+
+    .text-color {
+      color: var(--color);
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Update CSS Variables with <span class="text-color">JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing: </label>
+    <input type="range" name="spacing" value="10" min="10" max="200">
+
+    <label for="blur">Blur: </label>
+    <input type="range" name="blur" value="10" min="0" max="20">
+
+    <label for="base-color">Base Color </label>
+    <input type="color" name="base-color" value="#ffff00">
+  </div>
+
+  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+  <script>
+    const rootElement = document.querySelector(':root');
+    const spacing_input = document.querySelector('input[name="spacing"]');
+    const blur_input = document.querySelector('input[name="blur"]');
+    const color_input = document.querySelector('input[name="base-color"]');
+
+    function changeSpacing(e) {
+      rootElement.style.setProperty("--spacing", `${this.value}px`);
+    }
+
+    function changeBlur(e) {
+      rootElement.style.setProperty("--blur", `${this.value}px`);
+    }
+
+    function changeColor(e) {
+      rootElement.style.setProperty("--color", this.value);
+    }
+
+    spacing_input.addEventListener('input', changeSpacing);
+    blur_input.addEventListener('input', changeBlur);
+    color_input.addEventListener('change', changeColor);
+  </script>
+</body>
+
+</html>
