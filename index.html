@@ -47,38 +47,26 @@
 
   <div class="controls">
     <label for="spacing">Spacing: </label>
-    <input type="range" name="spacing" value="10" min="10" max="200">
+    <input type="range" name="spacing" value="10" min="10" max="200" data-suffix="px">
 
     <label for="blur">Blur: </label>
-    <input type="range" name="blur" value="10" min="0" max="20">
+    <input type="range" name="blur" value="10" min="0" max="20" data-suffix="px">
 
     <label for="base-color">Base Color </label>
-    <input type="color" name="base-color" value="#ffff00">
+    <input type="color" name="color" value="#ffff00">
   </div>
 
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <script>
-    const rootElement = document.querySelector(':root');
-    const spacing_input = document.querySelector('input[name="spacing"]');
-    const blur_input = document.querySelector('input[name="blur"]');
-    const color_input = document.querySelector('input[name="base-color"]');
-
-    function changeSpacing(e) {
-      rootElement.style.setProperty("--spacing", `${this.value}px`);
+    function handleChange(e) {
+      const suffix = this.dataset.suffix || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
     }
 
-    function changeBlur(e) {
-      rootElement.style.setProperty("--blur", `${this.value}px`);
-    }
-
-    function changeColor(e) {
-      rootElement.style.setProperty("--color", this.value);
-    }
-
-    spacing_input.addEventListener('input', changeSpacing);
-    blur_input.addEventListener('input', changeBlur);
-    color_input.addEventListener('change', changeColor);
+    document.querySelectorAll('.controls input').forEach(item => {
+      item.addEventListener('input', handleChange);
+    })
   </script>
 </body>
 
