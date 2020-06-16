@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      background-color: rgb(255, 196, 0);
+      font-size: 20px;
+    }
+
+    .elements {
+      width: 400px;
+      background-color: rgb(255, 255, 255);
+      margin: 50px auto;
+      border-radius: 5px;
+      box-shadow: 10px 10px rgba(0, 0, 0, 0.103);
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.205);
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+    }
+
+    .item>input {
+      background-color: red;
+      margin: 20px;
+    }
+
+    .item input:checked+label {
+      text-decoration: line-through;
+    }
+
+    .item>label {
+      padding: 20px;
+      width: 100%;
+      border-left: 1px solid rgba(128, 128, 128, 0.205);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="elements">
+    <div class="item">
+      <input type="checkbox" id="item1">
+      <label for="item1">This is an inbox layout</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item2">
+      <label for="item2">Check one item</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item3">
+      <label for="item3">Hold down your Shift key</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item4">
+      <label for="item4">Check a lower item</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item5">
+      <label for="item5">Everything in between should also be set to checked</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item6">
+      <label for="item6">Try to do it without any libraries</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item7">
+      <label for="item7">Just regular JavaScript</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item8">
+      <label for="item8">Good Luck!</label>
+    </div>
+    <div class="item">
+      <input type="checkbox" id="item9">
+      <label for="item9">Don't forget to tweet your result!</label>
+    </div>
+  </div>
+
+  <script>
+    const elements = [...document.querySelectorAll('.item > input')];
+    let isShiftPressed = false;
+    let startIndex = elements.length;
+    let endIndex = 0;
+    let checkboxesToCheck = [];
+
+    //whether shift is being held
+    document.addEventListener('keydown', (e) => {
+      if (e.keyCode === 16) {
+        isShiftPressed = true;
+      }
+    })
+    document.addEventListener('keyup', (e) => {
+      if (e.keyCode === 16) {
+        isShiftPressed = false
+      }
+    })
+
+    //set starting index
+    elements.forEach(item => {
+      item.addEventListener('change', (e) => {
+        if (e.target.checked && !isShiftPressed) { //mark first item when shift isn't being held
+          startIndex = elements.indexOf(e.target); 
+        } else if (elements.every(item => item.checked === false)) { //if none of checkboxes is checked, set start to last list item 
+          startIndex = elements.length;
+        }
+      })
+    })
+
+
+    //check appropriate checkboxes
+    elements.forEach(item => {
+      item.addEventListener('change', (e) => {
+        if (isShiftPressed) {
+          if (elements.indexOf(e.target)) {
+            endIndex = elements.indexOf(e.target) //index of the current element
+          }
+          console.log(`start index ${startIndex}`);
+          console.log(`end index ${endIndex}`);
+          if (startIndex < endIndex) {
+            checkboxesToCheck = elements.slice(startIndex, endIndex);
+          } else {
+            checkboxesToCheck = elements.slice(endIndex, startIndex);
+          }
+          console.log(checkboxesToCheck);
+          checkboxesToCheck.forEach(item => {
+            item.checked = true;
+          })
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
