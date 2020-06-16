@@ -102,42 +102,35 @@
     })
     document.addEventListener('keyup', (e) => {
       if (e.keyCode === 16) {
-        isShiftPressed = false
+        isShiftPressed = false;
       }
     })
 
-    //set starting index
-    elements.forEach(item => {
-      item.addEventListener('change', (e) => {
-        if (e.target.checked && !isShiftPressed) { //mark first item when shift isn't being held
-          startIndex = elements.indexOf(e.target); 
-        } else if (elements.every(item => item.checked === false)) { //if none of checkboxes is checked, set start to last list item 
-          startIndex = elements.length;
-        }
-      })
-    })
+    function handleCheck(e) {
+      if (e.target.checked && !isShiftPressed) { //mark first item when shift isn't being held
+        startIndex = elements.indexOf(e.target);
+      } else if (elements.every(item => item.checked === false)) { //if none of checkboxes is checked, set start to last list item 
+        startIndex = elements.length;
+      }
 
-
-    //check appropriate checkboxes
-    elements.forEach(item => {
-      item.addEventListener('change', (e) => {
-        if (isShiftPressed) {
-          if (elements.indexOf(e.target)) {
-            endIndex = elements.indexOf(e.target) //index of the current element
-          }
-          console.log(`start index ${startIndex}`);
-          console.log(`end index ${endIndex}`);
-          if (startIndex < endIndex) {
-            checkboxesToCheck = elements.slice(startIndex, endIndex);
-          } else {
-            checkboxesToCheck = elements.slice(endIndex, startIndex);
-          }
-          console.log(checkboxesToCheck);
-          checkboxesToCheck.forEach(item => {
-            item.checked = true;
-          })
+      //check appropriate checkboxes
+      if (isShiftPressed) {
+        if (elements.indexOf(e.target)) {
+          endIndex = elements.indexOf(e.target) //index of the current element
         }
-      })
+        if (startIndex < endIndex) {
+          checkboxesToCheck = elements.slice(startIndex, endIndex);
+        } else {
+          checkboxesToCheck = elements.slice(endIndex, startIndex);
+        }
+        checkboxesToCheck.forEach(item => {
+          item.checked = true;
+        })
+      }
+    }
+
+    elements.forEach(item => {
+      item.addEventListener('change', handleCheck);
     })
   </script>
 </body>
