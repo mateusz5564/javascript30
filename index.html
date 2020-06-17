@@ -89,40 +89,27 @@
 
   <script>
     const elements = [...document.querySelectorAll('.item > input')];
-    let isShiftPressed = false;
     let startIndex = elements.length;
     let endIndex = 0;
     let checkboxesToCheck = [];
 
-    //whether shift is being held
-    document.addEventListener('keydown', (e) => {
-      if (e.keyCode === 16) {
-        isShiftPressed = true;
-      }
-    })
-    document.addEventListener('keyup', (e) => {
-      if (e.keyCode === 16) {
-        isShiftPressed = false;
-      }
-    })
-
     function handleCheck(e) {
-      if (e.target.checked && !isShiftPressed) { //mark first item when shift isn't being held
+      if (e.target.checked && !e.shiftKey) { //mark first item when shift isn't being held
         startIndex = elements.indexOf(e.target);
       } else if (elements.every(item => item.checked === false)) { //if none of checkboxes is checked, set start to last list item 
         startIndex = elements.length;
       }
 
       //check appropriate checkboxes
-      if (isShiftPressed) {
-        if (elements.indexOf(e.target)) {
-          endIndex = elements.indexOf(e.target) //index of the current element
-        }
+      if (e.shiftKey) {
+        endIndex = elements.indexOf(e.target) //index of the current element
         if (startIndex < endIndex) {
           checkboxesToCheck = elements.slice(startIndex, endIndex);
         } else {
           checkboxesToCheck = elements.slice(endIndex, startIndex);
         }
+
+        //mark selected checkboxes
         checkboxesToCheck.forEach(item => {
           item.checked = true;
         })
@@ -130,9 +117,8 @@
     }
 
     elements.forEach(item => {
-      item.addEventListener('change', handleCheck);
+      item.addEventListener('click', handleCheck);
     })
   </script>
 </body>
-
 </html>
