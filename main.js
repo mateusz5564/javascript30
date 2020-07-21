@@ -12,11 +12,14 @@ const skipButtons = document.querySelectorAll('button[data-skip]');
 function togglePlay() {
   if(video.paused) {
     video.play();
-    toggle.textContent = "❚ ❚";
   } else {
     video.pause();
-    toggle.textContent = "►";
   }
+}
+
+function updateToggleButton() {
+  let icon =  video.paused ? "►" : "❚ ❚";
+  toggle.textContent = icon;
 }
 
 function changeVolume() {
@@ -48,6 +51,9 @@ function handleProgress(e) {
 
 toggle.addEventListener('click', togglePlay);
 video.addEventListener('click', togglePlay);
+video.addEventListener('play', updateToggleButton);
+video.addEventListener('pause', updateToggleButton);
+
 volume.addEventListener('input', changeVolume);
 playbackRate.addEventListener('input', changePlaybackRate);
 skipButtons.forEach((button) => {
