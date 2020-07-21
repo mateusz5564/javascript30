@@ -10,11 +10,7 @@ const playbackRate = document.querySelector('input[name="playbackRate"]');
 const skipButtons = document.querySelectorAll('button[data-skip]');
 
 function togglePlay() {
-  if(video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
+  video[video.paused ? 'play' : 'pause']();
 }
 
 function updateToggleButton() {
