@@ -18,12 +18,8 @@ function updateToggleButton() {
   toggle.textContent = icon;
 }
 
-function changeVolume() {
-  video.volume = this.value;
-}
-
-function changePlaybackRate() {
-  video.playbackRate = this.value;
+function handleRange() {
+  video[this.name] = this.value;
 }
 
 function skipVideo() {
@@ -50,8 +46,9 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateToggleButton);
 video.addEventListener('pause', updateToggleButton);
 
-volume.addEventListener('input', changeVolume);
-playbackRate.addEventListener('input', changePlaybackRate);
+volume.addEventListener('input', handleRange);
+playbackRate.addEventListener('input', handleRange);
+
 skipButtons.forEach((button) => {
   button.addEventListener('click', skipVideo);
 })
