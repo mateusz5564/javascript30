@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+
+  <script>
+    const code = "bonzo";
+    let pressed = [];
+
+
+    window.addEventListener('keyup', (e) => {
+      pressed.push(e.key);
+      let latestWords = pressed.splice(-code.length - 1, pressed.length - code.length);
+      if(latestWords.join('') == code) {
+        cornify_add();
+      }
+    })
+
+
+  </script>
+</body>
+</html>
