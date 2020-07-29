@@ -65,13 +65,9 @@
 
       return aWithoutArticle < bWithoutArticle ? -1 : 1;
     }
-    
+
     function renderList() {
-      bandsSorted.forEach(band => {
-        let li = document.createElement('li');
-        li.textContent = band;
-        bandsList.appendChild(li);
-      })
+      bandsList.innerHTML = bandsSorted.map(elem => `<li>${elem}</li>`).join('');
     }
 
 
