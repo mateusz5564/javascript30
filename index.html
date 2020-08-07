@@ -47,12 +47,8 @@
     msg.voice = voices.find(voice => voice.name == this.value);
   }
 
-  function setRate(){
-    msg.rate = this.value;
-  }
-
-  function setPitch(){
-    msg.pitch = this.value;
+  function setOption(){
+    msg[this.name] = this.value;
   }
   
   function playVoice() {
@@ -65,8 +61,8 @@
 
   speechSynthesis.addEventListener('voiceschanged', populateVoiceList);
   voicesDropdown.addEventListener('change', setVoice);
-  options[0].addEventListener('change', setRate);
-  options[1].addEventListener('change', setPitch);
+  options[0].addEventListener('change', setOption);
+  options[1].addEventListener('change', setOption);
   speakButton.addEventListener('click', playVoice);
   stopButton.addEventListener('click', stopVoice);
 
